@@ -1,0 +1,66 @@
+---
+/**
+ * Portable Text code block with Shiki highlighting.
+ *
+ * Replaces EmDash's default (unhighlighted) code block. Colors use
+ * light-dark() so they follow the site's color-scheme toggle.
+ */
+import { Code } from "astro:components";
+import type { ComponentProps } from "astro/types";
+
+// Stored languages are free-form strings; Shiki falls back to plaintext for unknown ones
+type Lang = ComponentProps<typeof Code>["lang"];
+
+interface Props {
+	node: {
+		_type: "code";
+		_key: string;
+		code: string;
+		language?: string;
+		filename?: string;
+	};
+}
+
+const { node } = Astro.props;
+if (!node?.code) return null;
+---
+
+<div class="code-block">
+	{node.filename && <div class="code-block__filename">{node.filename}</div>}
+	<Code
+		code={node.code}
+		lang={(node.language ?? "plaintext") as Lang}
+		themes={{ light: "github-light", dark: "github-dark" }}
+		defaultColor="light-dark()"
+	/>
+</div>
+
+<style>
+	.code-block {
+		margin-block: 1.5rem;
+	}
+
+	.code-block__filename {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--color-muted);
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--color-border);
+		border-block-end: none;
+		border-radius: 0.5rem 0.5rem 0 0;
+	}
+
+	.code-block :global(pre) {
+		margin: 0;
+		padding: 1rem;
+		border: 1px solid var(--color-border);
+		border-radius: 0.5rem;
+		overflow-x: auto;
+		font-size: 0.875rem;
+		line-height: 1.7;
+	}
+
+	.code-block__filename + :global(pre) {
+		border-radius: 0 0 0.5rem 0.5rem;
+	}
+</style>

@@ -1,0 +1,90 @@
+---
+import {
+	getEmDashEntry,
+	getSeoMeta,
+	decodeSlug,
+	getSiteSettings,
+} from "emdash";
+import { PortableText } from "emdash/ui";
+import CodeBlock from "../../components/CodeBlock.astro";
+import Base from "../../layouts/Base.astro";
+import { resolveBlogSiteIdentity } from "../../utils/site-identity";
+import { markdownResponse, parseMarkdownSlug, wantsMarkdown } from "../../utils/markdown";
+import "../../styles/prose.css";
+
+const decodedSlug = decodeSlug(Astro.params.slug);
+
+if (!decodedSlug) {
+	return Astro.rewrite("/404");
+}
+
+const { slug, byUrl: markdownByUrl } = parseMarkdownSlug(decodedSlug);
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", slug);
+
+if (!page) {
+	return Astro.rewrite("/404");
+}
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const pageUrl = `${Astro.url.origin}/pages/${slug}`;
+if (markdownByUrl || wantsMarkdown(Astro.request)) {
+	return markdownResponse({
+		title: page.data.title,
+		url: pageUrl,
+		origin: Astro.url.origin,
+		updated: page.data.updatedAt,
+		content: page.data.content,
+	});
+}
+// HTML and Markdown share this URL, so caches must key on Accept
+Astro.response.headers.set("Vary", "Accept");
+const { siteTitle } = resolveBlogSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: Astro.url.pathname.replace(/\/$/, ""),
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	robots={seo.robots}
+	content={{ collection: "pages", id: page.data.id, slug }}
+	markdownUrl={`${pageUrl}.md`}
+>
+	<article class="band page">
+		<div class="frame page__layout">
+			<header class="page__header">
+				<h1 class="page__title" {...page.edit.title}>{page.data.title}</h1>
+			</header>
+
+			<div class="prose page__body" {...page.edit.content}>
+				<PortableText value={page.data.content} components={{ type: { code: CodeBlock } }} />
+			</div>
+		</div>
+	</article>
+</Base>
+
+<style>
+	.page {
+		padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) clamp(4rem, 3rem + 4vw, 7rem);
+	}
+
+	/* Single column: Japanese titles wrap one phrase per line in a narrow side column */
+	.page__layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--spacing-8);
+		max-width: var(--content-width);
+	}
+
+	.page__title {
+		font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+		line-height: 1.25;
+	}
+</style>

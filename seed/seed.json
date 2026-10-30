@@ -1,0 +1,580 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "日本語ブログ",
+		"description": "日本語で書くための EmDash ブログテンプレート",
+		"author": "emdash-blog-ja"
+	},
+	"settings": {
+		"title": "わたしのブログ",
+		"tagline": "試したことや考えたことを書き残すブログ"
+	},
+	"collections": [
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"urlPattern": "/posts/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"scheduling",
+				"search",
+				"seo"
+			],
+			"commentsEnabled": true,
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text"
+				}
+			]
+		},
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"urlPattern": "/pages/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "category",
+			"label": "カテゴリ",
+			"labelSingular": "カテゴリ",
+			"hierarchical": true,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "development",
+					"label": "開発"
+				},
+				{
+					"slug": "design",
+					"label": "デザイン"
+				},
+				{
+					"slug": "notes",
+					"label": "メモ"
+				}
+			]
+		},
+		{
+			"name": "tag",
+			"label": "タグ",
+			"labelSingular": "タグ",
+			"hierarchical": false,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "css",
+					"label": "CSS"
+				},
+				{
+					"slug": "emdash",
+					"label": "EmDash"
+				},
+				{
+					"slug": "tools",
+					"label": "ツール"
+				}
+			]
+		}
+	],
+	"bylines": [
+		{
+			"id": "byline-author",
+			"slug": "author",
+			"displayName": "書いた人"
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "メインメニュー",
+			"items": [
+				{
+					"type": "custom",
+					"label": "ホーム",
+					"url": "/"
+				},
+				{
+					"type": "custom",
+					"label": "記事",
+					"url": "/posts"
+				},
+				{
+					"type": "custom",
+					"label": "このブログについて",
+					"url": "/pages/about"
+				}
+			]
+		}
+	],
+	"widgetAreas": [
+		{
+			"name": "sidebar",
+			"label": "サイドバー",
+			"description": "記事ページの横に表示するウィジェット",
+			"widgets": [
+				{
+					"type": "component",
+					"componentId": "core:tags",
+					"title": "タグ"
+				},
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "最近の投稿",
+					"props": {
+						"count": 5,
+						"showDate": false
+					}
+				}
+			]
+		},
+		{
+			"name": "footer",
+			"label": "フッター",
+			"description": "サイトのフッターに表示するウィジェット",
+			"widgets": []
+		}
+	],
+	"sections": [
+		{
+			"slug": "about-author",
+			"title": "書いた人の紹介",
+			"description": "記事の最後に置く、短い自己紹介",
+			"keywords": [
+				"著者",
+				"プロフィール",
+				"自己紹介"
+			],
+			"source": "theme",
+			"content": [
+				{
+					"_type": "block",
+					"style": "h3",
+					"children": [
+						{
+							"_type": "span",
+							"text": "この記事を書いた人",
+							"_key": "k1"
+						}
+					],
+					"_key": "k0"
+				},
+				{
+					"_type": "block",
+					"style": "normal",
+					"children": [
+						{
+							"_type": "span",
+							"text": "ここに自己紹介を書きます。何を書いているブログなのか、ひとことで伝わると読みやすくなります。",
+							"_key": "k3"
+						}
+					],
+					"_key": "k2"
+				}
+			]
+		}
+	],
+	"content": {
+		"pages": [
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "このブログについて",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "ここにブログの紹介を書きます。何について書いているのか、誰が書いているのかを短くまとめておくと、初めて来た人に伝わりやすくなります。",
+									"_key": "k37"
+								}
+							],
+							"_key": "k36"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "このブログは EmDash で作っています。",
+									"_key": "k39"
+								}
+							],
+							"_key": "k38"
+						}
+					]
+				}
+			}
+		],
+		"posts": [
+			{
+				"id": "post-welcome",
+				"slug": "welcome",
+				"status": "published",
+				"data": {
+					"title": "はじめての投稿",
+					"excerpt": "日本語で書くための EmDash ブログテンプレートです。最初に直しておきたい設定をまとめました。",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1559051668-e1fa58f25786?w=1200&h=800&fit=crop",
+							"alt": "Geometric pattern carved into white paper",
+							"filename": "notes-on-simplicity.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "このブログは、日本語で書くための EmDash ブログテンプレートで作っています。この記事はサンプルなので、管理画面から消すか、書き換えて使ってください。",
+									"_key": "k5"
+								}
+							],
+							"_key": "k4"
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "最初に直しておきたいこと",
+									"_key": "k7"
+								}
+							],
+							"_key": "k6"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "管理画面の「設定」で、サイト名とキャッチフレーズを自分のものにする",
+									"_key": "k9"
+								}
+							],
+							"_key": "k8",
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "タイムゾーンを Asia/Tokyo にする（記事の日付は日本時間で表示されます）",
+									"_key": "k11"
+								}
+							],
+							"_key": "k10",
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "「このブログについて」のページを書き換える",
+									"_key": "k13"
+								}
+							],
+							"_key": "k12",
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "メニューとウィジェットを、管理画面から好みに合わせて並べ替える",
+									"_key": "k15"
+								}
+							],
+							"_key": "k14",
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "このテンプレートで直してあること",
+									"_key": "k17"
+								}
+							],
+							"_key": "k16"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "公式の blog テンプレートは英語のサイトを前提にしています。このテンプレートでは、日本語で読みやすいように、画面の文言・日付・折り返し・フォントを直してあります。",
+									"_key": "k19"
+								}
+							],
+							"_key": "k18"
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-author"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"notes"
+					],
+					"tag": [
+						"emdash"
+					]
+				}
+			},
+			{
+				"id": "post-line-breaking",
+				"slug": "japanese-line-breaking",
+				"status": "published",
+				"data": {
+					"title": "日本語の折り返しを確かめるための記事",
+					"excerpt": "語の途中で改行されないかを確かめるための、少し長めの文章です。画面の幅を変えて見てください。",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=800&fit=crop",
+							"alt": "Laptop and coffee on a wooden table",
+							"filename": "case-for-static.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "英語前提のテンプレートでは、日本語の文章が「スマートフ」「ォン」のように、語の途中で改行されることがあります。このテンプレートでは、文節の切れ目で折り返すように CSS を当てています。",
+									"_key": "k21"
+								}
+							],
+							"_key": "k20"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "ブラウザの幅を少しずつ狭めながら、この段落を見てください。アプリケーション、インターフェース、データベース、キャッシュ、デプロイメントといったカタカナの長い言葉も、途中で切れずに次の行へ送られるはずです。",
+									"_key": "k23"
+								}
+							],
+							"_key": "k22"
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [
+								{
+									"_type": "span",
+									"text": "対応していないブラウザでは",
+									"_key": "k25"
+								}
+							],
+							"_key": "k24"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "文節での折り返し（word-break: auto-phrase）に対応していないブラウザでは、これまでどおり文字の単位で折り返されます。読めなくなるわけではないので、そのままで問題ありません。",
+									"_key": "k27"
+								}
+							],
+							"_key": "k26"
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-author"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"design"
+					],
+					"tag": [
+						"css"
+					]
+				}
+			},
+			{
+				"id": "post-code",
+				"slug": "code-blocks",
+				"status": "published",
+				"data": {
+					"title": "コードブロックの表示",
+					"excerpt": "コードブロックは Shiki で色付けされ、ライトとダークの切り替えに追従します。",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=800&fit=crop",
+							"alt": "Code on a monitor in a dark room",
+							"filename": "building-long-term.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "コードブロックは、言語を指定すると色付けされます。ファイル名を付けると、ブロックの上に表示されます。",
+									"_key": "k29"
+								}
+							],
+							"_key": "k28"
+						},
+						{
+							"_type": "code",
+							"code": "body {\n\tword-break: auto-phrase;\n\tline-break: strict;\n}",
+							"language": "css",
+							"_key": "k30",
+							"filename": "src/styles/theme.css"
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "色はライトモードとダークモードで切り替わります。画面右上の切り替えボタンで確かめてください。",
+									"_key": "k32"
+								}
+							],
+							"_key": "k31"
+						},
+						{
+							"_type": "code",
+							"code": "npm create emdash@latest my-blog\ncd my-blog\nnpm install\nnpm run dev",
+							"language": "bash",
+							"_key": "k33"
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-author"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"development"
+					],
+					"tag": [
+						"emdash",
+						"tools"
+					]
+				}
+			},
+			{
+				"id": "post-draft",
+				"slug": "work-in-progress",
+				"status": "draft",
+				"data": {
+					"title": "書きかけの記事",
+					"excerpt": "下書きは管理画面にだけ表示され、サイトには出ません。",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "下書きのサンプルです。公開するまでサイトには表示されません。",
+									"_key": "k35"
+								}
+							],
+							"_key": "k34"
+						}
+					]
+				},
+				"taxonomies": {
+					"category": [
+						"notes"
+					]
+				}
+			}
+		]
+	}
+}
